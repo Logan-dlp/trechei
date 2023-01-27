@@ -6,22 +6,22 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(JumpModule))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private KeyCode keyStart = KeyCode.Space;
-    [SerializeField] private float autoSpeed = 6;
-    [SerializeField] private float speed = 5f;
+    [SerializeField] private KeyCode keyStart = KeyCode.Return;
+    [SerializeField] float speed = 5;
 
-    [SerializeField] private int layer = 3;
-    
     private PlayerInput input;
     private Vector2 moveDirection;
 
-    public bool gameStart = false;
-    private bool grounded = false;
+    public bool GameStart = false;
+
+    private JumpModule jumpModule;
 
     private void Start()
     {
+        jumpModule = GetComponent<JumpModule>();
         input = GetComponent<PlayerInput>();
 
         InputAction _mouvement = input.actions["Mouvement"];
@@ -33,13 +33,18 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        float _moveX = moveDirection.x;
+        float _moveY = moveDirection.y;
+
+        if (Input.GetKeyDown(keyStart))
         {
-            gameStart = true;
+            GameStart = true;
         }
-        if (gameStart == true)
+
+        if (GameStart == true)
         {
-            transform.position += new Vector3(moveDirection.x * speed, 0, autoSpeed) * Time.deltaTime;
+            transform.position = transform.position + transform.forward * _moveY * speed * Time.deltaTime;
+            transform.position = transform.position + transform.right * _moveX * speed * Time.deltaTime;
         }
     }
 
