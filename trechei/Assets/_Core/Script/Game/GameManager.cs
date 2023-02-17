@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    private Timer timer;
-    
+    [SerializeField] private Timer Timer;
+    [SerializeField] private Text timer;
+
     public void CursorInGame()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -14,5 +17,11 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    private void Update()
+    {
+        Timer.TimeInGame += Time.deltaTime;
+        timer.text = Timer.DisplayTime(Timer.TimeInGame);
     }
 }
