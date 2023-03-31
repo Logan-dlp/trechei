@@ -50,10 +50,10 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _normal_strenght: 271.71
+    - _normal_strenght: 6555.4
     - _normalspeed_1: 127.46
     m_Colors:
     - _ripplescolor: {r: 0.09740117, g: 0.299894, b: 0.7169812, a: 0}
     - _ripplesspeed: {r: 1, g: 1, b: 0, a: 0}
-    - _scale: {r: -286.7, g: 0, b: 0, a: 0}
+    - _scale: {r: -286.99, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
