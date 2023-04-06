@@ -1,11 +1,14 @@
 using System;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Timer Timer;
     [SerializeField] private Text timer;
+    public float Score;
+    public bool InGame = false;
 
     public void CursorInGame()
     {
@@ -21,7 +24,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        Timer.TimeInGame += Time.deltaTime;
+        if (InGame == true)
+        {
+            Timer.TimeInGame += Time.deltaTime;
+        }
+        if (Timer.TimeInGame <= 0)
+        {
+            Timer.TimeInGame = 0;
+        }
         timer.text = Timer.DisplayTime(Timer.TimeInGame);
     }
 }

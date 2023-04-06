@@ -15,9 +15,11 @@ public class PlayerController : MonoBehaviour
     private PlayerInput input;
     private Vector2 moveDirection;
 
-    public bool GameStart = false;
-
     private JumpModule jumpModule;
+
+    [SerializeField] private SceneLoader loader;
+    [SerializeField] private GameManager manager;
+    [SerializeField] private Timer timer;
 
     private void Start()
     {
@@ -38,10 +40,10 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(keyStart))
         {
-            GameStart = true;
+            manager.InGame = true;
         }
 
-        if (GameStart == true)
+        if (manager.InGame == true)
         {
             transform.position = transform.position + transform.forward * _moveY * speed * Time.deltaTime;
             transform.position = transform.position + transform.right * _moveX * speed * Time.deltaTime;
@@ -64,4 +66,19 @@ public class PlayerController : MonoBehaviour
         moveDirection = Vector2.zero;
     }
     #endregion
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
+        {
+            loader.LoadScene("GameOver");
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Fin"))
+        {
+            manager.InGame = false;
+            timer.Save();
+            loader.LoadScene("Win");
+        }
+    }
 }

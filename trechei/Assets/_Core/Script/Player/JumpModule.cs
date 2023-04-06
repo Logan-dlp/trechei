@@ -15,7 +15,7 @@ public class JumpModule : MonoBehaviour
     [Header("Player Components")]
     public Rigidbody Rb;
     [SerializeField] Collider colliders;
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private GameManager manager;
     
     int count = 0;
     public bool isJumped = true;
@@ -39,7 +39,7 @@ public class JumpModule : MonoBehaviour
     private void Update()
     {
         JumpGavity();
-        if (playerController.GameStart != true) return;
+        if (manager.InGame != true) return;
         if(Input.GetKeyDown(ToJump) && count <= CountJump)
         {
             // Add force for jump
