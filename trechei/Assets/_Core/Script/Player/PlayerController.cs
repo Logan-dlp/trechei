@@ -71,12 +71,14 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("Water"))
         {
+            manager.CursorOutGame();
             loader.LoadScene("GameOver");
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Fin"))
         {
             manager.InGame = false;
+            manager.CursorOutGame();
             timer.Save();
             loader.LoadScene("Win");
         }
